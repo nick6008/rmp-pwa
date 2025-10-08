@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сайт на GitHub</title>
+    <!-- PWA мета-теги -->
+    <meta name="theme-color" content="#0066FF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="lab_GiApp">
+    <meta name="msapplication-TileColor" content="#0066FF">
+    <meta name="msapplication-tap-highlight" content="no">
+    
+    <!-- Иконки -->
+    <link rel="icon" type="image/png" href="icons8-_webapp-64.png">
+    <link rel="apple-touch-icon" href="icons8-_webapp-64.png">
+    
+    <!-- Манифест -->
+    <link rel="manifest" href="manifest.webmanifest">
+
+    <style></style>
+    <link rel="stylesheet" href="webview.css">
+</head>
+<body>
+    <div class="wrapper f0">
+        <div class="f1 color1 center_y">
+            <h2 align='center'>Размещение сайта на GitHub</h2>
+        </div>
+        <div class="f2 color2">
+        
+			    <div class="f21 color3">
+			      <p class="f22"><span class="phead">1. Создать репозиторий из любого раздела профиля:</span><br> кликнуть на <span>+</span>, а затем — <span>New repository</span>.</p>
+				    <img src="img/1.png" class="f21-img">
+          </div>
+			    <div class="f21 color4">
+			      <p class="f22"><span class="phead">2. Сделать  репозиторий публичным:</span><br>
+                <span>Setting / Danger Zone / Change repository visibility</span></p>
+          </div>
+			    <div class="f21 color3">
+			      <div>
+			      <p class="f22 phead">3. Подключаем GitHub Pages: </p>
+			      <p>Через некоторое время после обновления страницы появится url сайта</p>
+			        </div>
+    
+    
+<ul>
+    <li>Со страницы репозитория кликнуть по вкладке <span>Settings</span></li>
+    <li>Слева в меню выбрать <span>Pages</span></li>
+    <li>Во вкладке <span>GitHub Pages</span> в блоке <span>Branch</span> поменять <span>None</span> на <span>main</span> и <span>Save</span>.</li>
+    </ul>    
+    
+          </div>
+			    <div class="f21">
+			      <p class="f22"><span class="phead">4. Загрузить html и css проекта:</span><br>
+нажмите <span>Add file</span>, а потом — <span>Upload files</span>. 
+<span>index.html</span> должен находиться в корне. <br>Выберите все файлы проекта и кликните на кнопку <span>Commitchanges</span>, чтобы загрузить файлы в репозиторий. </p>
+          </div>
+
+      </div>    
+    </div>    
+    <script>
+        // Регистрация Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then((registration) => {
+                        console.log('Service Worker зарегистрирован:', registration);
+                    })
+                    .catch((error) => {
+                        console.log('Ошибка регистрации Service Worker:', error);
+                    });
+            });
+        }
+        
+        // Обработка установки PWA
+        let deferredPrompt;
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            console.log('PWA можно установить');
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Показать кнопку установки
+            showInstallButton();
+        });
+        
+        function showInstallButton() {
+            const installButton = document.createElement('button');
+            installButton.textContent = 'Установить приложение';
+            installButton.className = 'install-button';
+            installButton.onclick = installPWA;
+            
+            document.body.appendChild(installButton);
+        }
+        
+        function installPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('Пользователь установил PWA');
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        }
+        
+        // Обработка успешной установки
+        window.addEventListener('appinstalled', (evt) => {
+            console.log('PWA установлено');
+        });
+    </script>
+            
+</body>
+</html>
